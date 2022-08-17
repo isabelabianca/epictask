@@ -1,19 +1,26 @@
 package br.com.fiap.epictaskapi.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.epictaskapi.model.Task;
+import br.com.fiap.epictaskapi.repository.TaskRepository;
 
 @Service
 public class TaskService {
+    
+    @Autowired
+    TaskRepository repository;
 
-    public List<Task> listAll() {
+    public List<Task> listAll(){
+       return repository.findAll();
+    }
 
-        return List.of(
-            new Task("Modelar o Banco de Dados", "Modelar as tabelas do BD"),
-            new Task("Protótipo", "Prototipar as telas", 50, 0));
+    public void save(Task task) {
+        repository.save(task);
     }
 
 }
