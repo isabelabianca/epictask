@@ -1,8 +1,12 @@
 package br.com.fiap.epictaskapi.model;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "t_user")
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,6 +66,4 @@ public class User {
         return "User [email=" + email + ", id=" + id + ", name=" + name + ", password=" + password + "]";
     }
 
-    
-    
 }

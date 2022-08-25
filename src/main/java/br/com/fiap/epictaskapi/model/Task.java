@@ -23,9 +23,7 @@ public class Task {
     public Task() {
     }
 
-    
-
-    public Task(@NotBlank(message = "titulo é obrigatório") String title, String description, @Min(1) int score) {
+    public Task(@NotBlank(message = "título é obrigatório") String title, String description, @Min(1) int score) {
         this.title = title;
         this.description = description;
         this.score = score;
