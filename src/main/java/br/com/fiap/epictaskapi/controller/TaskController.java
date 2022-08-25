@@ -1,12 +1,16 @@
 package br.com.fiap.epictaskapi.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,8 +33,9 @@ public class TaskController {
     private TaskService service;
     
     @GetMapping
-    public List<Task> index(){
-        return service.listAll();
+    @Cacheable("task")
+    public Page<Task> index(@PageableDefault(size = 5) Pageable pageable){
+        return service.listAll(pageable);
     }
 
     @PostMapping
@@ -42,9 +47,10 @@ public class TaskController {
     @GetMapping("{id}")
     public ResponseEntity<Task> show(@PathVariable Long id){
         return ResponseEntity.of(service.getById(id));
-    } 
-    
+    }
+
     @DeleteMapping("{id}")
+    @CacheEvict(value = "task", allEntries = true)
     public ResponseEntity<Object> destroy(@PathVariable Long id){
         Optional<Task> optional = service.getById(id);
 
@@ -58,24 +64,18 @@ public class TaskController {
     @PutMapping("{id}")
     public ResponseEntity<Task> update(@PathVariable Long id, @RequestBody @Valid Task newTask){
 
-        // buscar a tarefa no banco
         Optional<Task> optional = service.getById(id);
 
-        // verificar se existe tarefa com esse id
         if (optional.isEmpty())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         
-        // se existir, atualizar os dados no objeto
         var task = optional.get();
         BeanUtils.copyProperties(newTask, task);
         task.setId(id);
 
-        //salvar no BD
         service.save(task);
 
         return ResponseEntity.ok(task);
-        
-        // fazer usuario com id, nome, email e senha
     }
 
 
