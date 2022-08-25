@@ -24,6 +24,7 @@ import br.com.fiap.epictaskapi.service.UserService;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+    
     @Autowired
     private UserService service;
 
