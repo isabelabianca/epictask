@@ -1,27 +1,55 @@
 package br.com.fiap.epictaskapi.model;
+
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "t_user")
-public class User {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.Assert;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Entity
+@Table(name = "tb_user")
+public class User implements UserDetails {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
     private String password;
 
-    public User(){}
+    public User name (String name){
+        Assert.notNull(name, "Invalid name");
+        this.name = name;
+        return this;
+    }
+
+    public User email (String email){
+        Assert.notNull(email, "Invalid email");
+        this.email = email;
+        return this;
+    }
+
+    public User password (String password){
+        Assert.notNull(password, "Invalid password");
+        this.password = password;
+        return this;
+    }
+
+    public User() {
+    }
 
     public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
+
     public User(Long id, String name, String email, String password) {
         this.id = id;
         this.name = name;
@@ -64,6 +92,36 @@ public class User {
     @Override
     public String toString() {
         return "User [email=" + email + ", id=" + id + ", name=" + name + ", password=" + password + "]";
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 
 }

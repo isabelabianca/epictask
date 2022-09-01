@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.com.fiap.epictaskapi.model.Task;
 import br.com.fiap.epictaskapi.model.User;
@@ -18,6 +20,9 @@ public class DatabaseSeed implements CommandLineRunner {
     TaskRepository taskRepository;
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
@@ -38,6 +43,12 @@ public class DatabaseSeed implements CommandLineRunner {
             new User("Julius", "juliusrock@gmail.com", "pass123456w"),
             new User("Greg", "chrisegreg@gmail.com", "taonasua23")
         ));
+        userRepository.save(
+            new User()
+                .name("Isabela")
+                .email("isabela@fiap.com.br")
+                .password(passwordEncoder.encode("123")))
+        );
     }
     
 }
