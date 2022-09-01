@@ -1,0 +1,9 @@
+# Listar todas
+GET http://localhost:8080/api/task
+###
+
+# Apagar
+DELETE http://localhost:8080/api/task/1
+
+###
+
