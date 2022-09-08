@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.com.fiap.epictaskapi.model.Task;
@@ -14,6 +14,7 @@ import br.com.fiap.epictaskapi.repository.TaskRepository;
 import br.com.fiap.epictaskapi.repository.UserRepository;
 
 @Configuration
+@Profile("dev")
 public class DatabaseSeed implements CommandLineRunner {
 
     @Autowired
@@ -38,17 +39,20 @@ public class DatabaseSeed implements CommandLineRunner {
             new Task("Internacionalização", "Corrigir erro da API", 80),
             new Task("Segundo teste", "Corrigir erro da API", 70)
         ));
+
         userRepository.saveAll(List.of(
             new User("Chris", "chrissytirocerto@gmail.com", "password123"),
             new User("Julius", "juliusrock@gmail.com", "pass123456w"),
-            new User("Greg", "chrisegreg@gmail.com", "taonasua23")
+            new User("Greg", "chrisegreg@gmail.com", "taonasua23"),
+            new User("Isabela", "isabela@fiap.com.br", passwordEncoder.encode("123"))
         ));
-        userRepository.save(
-            new User()
-                .name("Isabela")
-                .email("isabela@fiap.com.br")
-                .password(passwordEncoder.encode("123")))
-        );
+
+        // userRepository.save(
+        //     new User()
+        //         .name("Isabela")
+        //         .email("isabela@fiap.com.br")
+        //         .password(passwordEncoder.encode("123")))
+        // );
     }
     
 }
