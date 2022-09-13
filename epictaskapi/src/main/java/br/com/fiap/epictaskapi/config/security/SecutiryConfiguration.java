@@ -3,7 +3,6 @@ package br.com.fiap.epictaskapi.config.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,8 +19,8 @@ public class SecutiryConfiguration {
             .and()
             .authorizeHttpRequests()
                 .antMatchers(HttpMethod.GET, "/api/task/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/task").authenticated()
-                .antMatchers(HttpMethod.DELETE, "/api/task").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/task").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/task").permitAll()
                 .anyRequest().denyAll()
             .and()
                 .csrf().disable()

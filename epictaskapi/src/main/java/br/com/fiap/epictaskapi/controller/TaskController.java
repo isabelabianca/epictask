@@ -40,14 +40,14 @@ public class TaskController {
     }
 
     @PostMapping
-    @PreAuthorize("authenticated()")
+    // @PreAuthorize("authenticated()")
     public ResponseEntity<Task> create(@RequestBody @Valid Task task){
         service.save(task);
         return ResponseEntity.status(HttpStatus.CREATED).body(task);
     }
 
     @GetMapping("{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Task> show(@PathVariable Long id){
         return ResponseEntity.of(service.getById(id));
     }
