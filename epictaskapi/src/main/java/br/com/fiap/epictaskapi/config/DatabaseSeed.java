@@ -19,6 +19,7 @@ public class DatabaseSeed implements CommandLineRunner {
 
     @Autowired
     TaskRepository taskRepository;
+
     @Autowired
     UserRepository userRepository;
 
@@ -27,18 +28,13 @@ public class DatabaseSeed implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        taskRepository.saveAll(List.of(
-            new Task("Modelar BD", "Modelar tabelas do banco", 150),
-            new Task("Protótipo", "Prototipar as telas", 250),
-            new Task("Bug", "Corrigir erro da API", 50),
-            new Task("Login", "Modelar tabelas do banco", 100),
-            new Task("Deploy", "Prototipar as telas", 75),
-            new Task("Cadastro de usuário", "Corrigir erro da API", 200),
-            new Task("Testes", "Modelar tabelas do banco", 100),
-            new Task("Logout", "Prototipar as telas", 150),
-            new Task("Internacionalização", "Corrigir erro da API", 80),
-            new Task("Segundo teste", "Corrigir erro da API", 70)
-        ));
+
+        userRepository.save(
+            new User()
+                .name("João")
+                .email("joao@fiap.com.br")
+                .password(passwordEncoder.encode("123")) 
+        );
 
         userRepository.saveAll(List.of(
             new User("Chris", "chrissytirocerto@gmail.com", "password123"),
@@ -47,12 +43,17 @@ public class DatabaseSeed implements CommandLineRunner {
             new User("Isabela", "isabela@fiap.com.br", passwordEncoder.encode("123"))
         ));
 
-        // userRepository.save(
-        //     new User()
-        //         .name("Isabela")
-        //         .email("isabela@fiap.com.br")
-        //         .password(passwordEncoder.encode("123")))
-        // );
+        taskRepository.saveAll(List.of(
+            new Task("Modelar BD", "modelar tabelas do banco", 150),
+            new Task("Prototipo", "prototipar as telas", 20),
+            new Task("Login", "prototipar as telas", 10),
+            new Task("Deploy", "prototipar as telas", 50),
+            new Task("Cadastro de usuário", "prototipar as telas", 30),
+            new Task("Testes", "prototipar as telas", 25),
+            new Task("Logout", "prototipar as telas", 12),
+            new Task("Internacionalização", "prototipar as telas", 70),
+            new Task("Bug", "corrigir erro da API", 50)
+        ));
     }
     
 }

@@ -8,7 +8,8 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 
-@Entity @Table(name = "t_role")
+@Entity
+@Table(name = "TB_ROLE")
 public class Role implements GrantedAuthority {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,5 +28,5 @@ public class Role implements GrantedAuthority {
     public String getAuthority() {
         return this.name;
     }
-    
+
 }

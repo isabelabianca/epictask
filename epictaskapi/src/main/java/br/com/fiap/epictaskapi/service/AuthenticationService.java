@@ -1,6 +1,7 @@
 package br.com.fiap.epictaskapi.service;
 
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,12 +19,9 @@ public class AuthenticationService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // buscar usuário no banco
         Optional<User> user = userRepository.findByEmail(username);
-        // verificar se existe, se existir, retorna o usuário
         if(user.isPresent()) return user.get();
-        
-        // senão, erro de usuário não encontrado
         throw new UsernameNotFoundException("user not found " + username);
-    }    
+    }
+    
 }

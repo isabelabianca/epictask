@@ -1,10 +1,12 @@
-# Listar todas
+# Listar Todas
 GET http://localhost:8080/api/task
-# Authorization: Basic user 519d904c-50a8-40f9-a21b-4b82454d488a
+#Authorization: Basic user 711e36f3-3952-4424-b7aa-97043923193f
+
 ###
 
 # Apagar
 DELETE http://localhost:8080/api/task/1
+
 ###
 
 # Cadastrar
@@ -13,8 +15,44 @@ Content-Type: application/json
 Authorization: Basic isabela@fiap.com.br 123
 
 {
-    "title": "Modelar BD",
-    "description": "Modelar tabelas do banco",
-    "score": 150
+      "title": "Modelar BD",
+      "description": "modelar tabelas do banco",
+      "score": 150
+}
+###
+
+#  ------------ Usuário
+# Listar todos
+GET http://localhost:8080/api/user
+###
+
+#Detalhes usuário
+GET http://localhost:8080/api/user/2
+###
+
+# Apagar
+DELETE http://localhost:8080/api/user/1
+Authorization: Basic admin@fiap.com.br administrador
+###
+
+# Cadastrar
+POST http://localhost:8080/api/user
+Content-Type: application/json
+
+{
+      "name": "Admin",
+      "email": "admin@fiap.com.br",
+      "password": "administrador"
+}
+###
+
+# Atualizar
+PUT http://localhost:8080/api/user/5
+Content-Type: application/json
+Authorization: Basic admin@fiap.com.br administrador
+
+{
+      "name": "Chrissy",
+      "email": "sucodefruta@gmail.com"
 }
 ###

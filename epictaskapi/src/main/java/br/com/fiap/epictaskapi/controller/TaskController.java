@@ -13,7 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+// import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,17 +47,18 @@ public class TaskController {
     }
 
     @GetMapping("{id}")
-    // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Task> show(@PathVariable Long id){
         return ResponseEntity.of(service.getById(id));
     }
 
     @DeleteMapping("{id}")
+    // @PreAuthorize("hasRole('ADMIN')")
     @CacheEvict(value = "task", allEntries = true)
     public ResponseEntity<Object> destroy(@PathVariable Long id){
+
         Optional<Task> optional = service.getById(id);
 
-        if (optional.isEmpty())
+        if(optional.isEmpty())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
         service.deleteById(id);
@@ -66,20 +67,21 @@ public class TaskController {
 
     @PutMapping("{id}")
     public ResponseEntity<Task> update(@PathVariable Long id, @RequestBody @Valid Task newTask){
-
+        // buscar a tarefa no BD
         Optional<Task> optional = service.getById(id);
 
-        if (optional.isEmpty())
+        // verificar se existe tarefa com esse id
+        if(optional.isEmpty())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        
+
+        // atualizar os dados no objeto
         var task = optional.get();
         BeanUtils.copyProperties(newTask, task);
         task.setId(id);
 
+        // salvar no BD
         service.save(task);
 
         return ResponseEntity.ok(task);
     }
-
-
 }

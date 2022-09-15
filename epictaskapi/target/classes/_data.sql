@@ -4,7 +4,8 @@ create table task (
     score integer not null check (score>=1), 
     status integer not null, 
     title varchar(255), 
-    primary key (id));
+    primary key (id)
+);
 
 INSERT INTO TASK (title, description, score, status)
-    VALUES ('Modelar Bd', 'Modelar as tabelas', 150, 0);
+    VALUES ('Modelar BD', 'modelar as tabelas', 150, 0);    

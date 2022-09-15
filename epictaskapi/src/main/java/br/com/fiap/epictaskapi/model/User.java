@@ -16,11 +16,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
 @Entity
-@Table(name = "tb_user")
+@Table(name = "TB_USER")
 public class User implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
@@ -29,48 +28,34 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
-    public User name (String name){
-        Assert.notNull(name, "Invalid name");
-        this.name = name;
-        return this;
-    }
-
-    public User email (String email){
-        Assert.notNull(email, "Invalid email");
-        this.email = email;
-        return this;
-    }
-
-    public User password (String password){
-        Assert.notNull(password, "Invalid password");
-        this.password = password;
-        return this;
-    }
-
-    public User() {
-    }
-
     public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
+    public User(){}
 
-    public User(Long id, String name, String email, String password) {
-        this.id = id;
+    public User name(String name){
+        Assert.notNull(name, "invalid name");
         this.name = name;
+        return this;
+    }
+
+    public User email(String email){
+        Assert.notNull(email, "invalid email");
         this.email = email;
+        return this;
+    }
+
+    public User password(String password){
+        Assert.notNull(password, "invalid password");
         this.password = password;
+        return this;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public User(Long id) {
         this.id = id;
     }
-
     public String getName() {
         return name;
     }
@@ -93,11 +78,6 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "User [email=" + email + ", id=" + id + ", name=" + name + ", password=" + password + "]";
     }
 
     @Override
@@ -127,7 +107,19 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
+    }
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public List<Role> getRoles() {
+        return roles;
+    }
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
 }
