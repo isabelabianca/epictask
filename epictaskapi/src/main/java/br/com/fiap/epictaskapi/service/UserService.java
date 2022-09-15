@@ -17,6 +17,7 @@ public class UserService {
     UserRepository repository;
 
     public Page<User> listAll(Pageable pageable){
+        
        return repository.findAll(pageable);
     }
 
