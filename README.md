@@ -1,6 +1,6 @@
 # Projeto Epictask
 
-<h3>Checkpoint 01 de Digital Business Enablement - </h3>
+<h3>Checkpoint 01 de Digital Business Enablement </h3>
 
 <h4> Grupo </h4>
 <ul>
