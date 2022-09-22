@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.fiap.epictaskapi.dto.UserDto;
 import br.com.fiap.epictaskapi.model.User;
 import br.com.fiap.epictaskapi.service.UserService;
 
@@ -37,7 +38,6 @@ public class UserController {
     PasswordEncoder passwordEncoder;
 
     @GetMapping
-    @Cacheable("user")
     public Page<User> index(@PageableDefault(size = 5) Pageable pageable){
         
         return service.listAll(pageable);
@@ -45,19 +45,24 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> create(@RequestBody @Valid User user){
-        String password = passwordEncoder.encode(user.getPassword());
-        user.password(password);
+        user.password(passwordEncoder.encode(user.getPassword()));
         service.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<User> show(@PathVariable Long id){
-        return ResponseEntity.of(service.getById(id));
+    public ResponseEntity<UserDto> show(@PathVariable Long id){
+        Optional<User> optional = service.getById(id);
+
+        if (optional.isEmpty())
+            return ResponseEntity.notFound().build();
+        
+            User user = optional.get();
+
+        return ResponseEntity.ok(user.toDto());
     }
 
     @DeleteMapping("{id}")
-    @CacheEvict(value = "user", allEntries = true)
     public ResponseEntity<Object> destroy(@PathVariable Long id){
 
         Optional<User> optional = service.getById(id);
@@ -77,12 +82,8 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
         var user = optional.get();
-        var password = user.getPassword();
 
-        BeanUtils.copyProperties(newUser, user);
-
-        user.setId(id);
-        user.setPassword(passwordEncoder.encode(password));
+        BeanUtils.copyProperties(newUser, user, new String [] {"id", "password"});
 
         service.save(user);
 

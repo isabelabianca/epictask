@@ -27,7 +27,7 @@ GET http://localhost:8080/api/user
 ###
 
 #Detalhes usuário
-GET http://localhost:8080/api/user/2
+GET http://localhost:8080/api/user/1
 ###
 
 # Apagar
