@@ -12,7 +12,7 @@ DELETE http://localhost:8080/api/task/1
 # Cadastrar
 POST http://localhost:8080/api/task
 Content-Type: application/json
-Authorization: Basic isabela@fiap.com.br 123
+Authorization: Basic admin@fiap.com.br administrador
 
 {
       "title": "Modelar BD",

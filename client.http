@@ -12,11 +12,47 @@ DELETE http://localhost:8080/api/task/1
 # Cadastrar
 POST http://localhost:8080/api/task
 Content-Type: application/json
-Authorization: Basic joao@fiap.com.br 123
+Authorization: Basic admin@fiap.com.br administrador
 
 {
       "title": "Modelar BD",
       "description": "modelar tabelas do banco",
       "score": 150
+}
+###
+
+#  ------------ Usuário
+# Listar todos
+GET http://localhost:8080/api/user
+###
+
+#Detalhes usuário
+GET http://localhost:8080/api/user/2
+###
+
+# Apagar
+DELETE http://localhost:8080/api/user/1
+Authorization: Basic admin@fiap.com.br administrador
+###
+
+# Cadastrar
+POST http://localhost:8080/api/user
+Content-Type: application/json
+
+{
+      "name": "Admin",
+      "email": "admin@fiap.com.br",
+      "password": "administrador"
+}
+###
+
+# Atualizar
+PUT http://localhost:8080/api/user/5
+Content-Type: application/json
+Authorization: Basic admin@fiap.com.br administrador
+
+{
+      "name": "Chrissy",
+      "email": "sucodefruta@gmail.com"
 }
 ###
