@@ -1,6 +1,6 @@
 # Projeto Epictask
 
-<h3>Checkpoint 01 de Digital Business Enablement </h3>
+<h3>Aplicação de gerenciamento de tarefas gamificada desenvolvida em SpringBoot  </h3>
 
 <h4> Grupo </h4>
 <ul>
@@ -10,4 +10,4 @@
   <li> Rodrigo Gonzalo Barbosa Segura - 83954 </li>
 </ul>
 
-<p><a href="https://epictask-web.herokuapp.com/">Link do Deploy </a></p>
+<p><a href="https://epictask-web.herokuapp.com/">Link do Deploy Heroku</a></p>
