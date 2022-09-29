@@ -33,7 +33,7 @@ public class SecurityConfiguration {
                 // infra
                 .antMatchers("/h2-console/**").permitAll()
 
-                .anyRequest().denyAll()
+                .anyRequest().permitAll()
             .and()
                 .csrf().disable()
                 .headers().frameOptions().disable()

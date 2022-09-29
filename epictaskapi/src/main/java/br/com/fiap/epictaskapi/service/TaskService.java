@@ -1,5 +1,6 @@
 package br.com.fiap.epictaskapi.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,10 @@ public class TaskService {
 
     public Page<Task> listAll(Pageable pageable){
        return repository.findAll(pageable);
+    }
+
+    public List<Task> listAll(){
+        return repository.findAll();
     }
 
     public void save(Task task) {
